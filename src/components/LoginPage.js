@@ -1,5 +1,5 @@
 // LoginPage.js
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { useHistory } from 'react-router-dom';
 import Cookies from 'js-cookie';
 
@@ -8,13 +8,33 @@ function LoginPage() {
   const [password, setPassword] = useState('');
   const history = useHistory();
 
-  const handleSubmit = (e) => {
+  
+  const handleSubmit = async (e) => {
     e.preventDefault();
     // Perform authentication here (e.g., API call)
     // On success:
-    Cookies.set('authToken', '12345678');
-    history.push('/home');
+    try {
+      // Replace this with your actual authentication API call
+      const response = { ok: true};
+
+      if (response.ok) {
+        console.log('Authentication successful');
+        Cookies.set('authToken', '12345678');
+        history.push('/home');
+      } else {
+        console.log('Authentication failed');
+      }
+    } catch (error) {
+      console.error('Error during authentication:', error);
+    }
   };
+
+  useEffect(()=> {
+    const authToken = Cookies.get( 'authToken' );
+    if (authToken) {
+      history.push('/home');
+    }
+  }, [history]);
 
   return (
     <div>
