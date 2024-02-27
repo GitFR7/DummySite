@@ -17,10 +17,11 @@ function LoginPage() {
       // Replace this with your actual authentication API call
       const response = { ok: true};
 
-      if (response.ok) {
+      if (response.ok && username === 'admin' && password === 'qwe123') {
         console.log('Authentication successful');
         Cookies.set('authToken', '12345678');
         history.push('/home');
+        window.location.reload();
       } else {
         console.log('Authentication failed');
       }
