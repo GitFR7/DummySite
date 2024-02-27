@@ -12,7 +12,7 @@ function LoginPage() {
     e.preventDefault();
     // Perform authentication here (e.g., API call)
     // On success:
-    Cookies.set('authToken', 'yourAuthToken');
+    Cookies.set('authToken', '12345678');
     history.push('/home');
   };
 
