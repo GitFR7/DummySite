@@ -5,14 +5,17 @@ import Cookies from 'js-cookie';
 function HomePage() {
   const history = useHistory();
   const [textInput, setTextInput] = useState('');
-  const [submittedText, setSubmittedText] = useState('');
+  const [comments, setComments] = useState([]);
 
   const handleInputChange = (e) => {
     setTextInput(e.target.value);
   };
 
-  const handleSubmit = () => {
-    setSubmittedText(textInput);
+  const handleSubmitComment = () => {
+    // Add the new comment to the comments array
+    setComments([...comments, textInput]);
+    // Clear the text input
+    setTextInput('');
   };
 
   const handleLogout = () => {
@@ -31,8 +34,19 @@ function HomePage() {
         onChange={handleInputChange}
         placeholder="Type something..."
       />
-      <button onClick={handleSubmit}>Submit</button>
-      <p>Submitted Text: {submittedText}</p>
+      <button onClick={handleSubmitComment}>Submit Comment</button>
+
+      {/* Display the list of comments */}
+      <div>
+        <h2>Comments</h2>
+        <ul>
+          {comments.map((comment, index) => (
+            // Use dangerouslySetInnerHTML to render the comment
+            <li key={index} dangerouslySetInnerHTML={{ __html: comment }} />
+          ))}
+        </ul>
+      </div>
+
       <button onClick={handleLogout}>Logout</button>
     </div>
   );
